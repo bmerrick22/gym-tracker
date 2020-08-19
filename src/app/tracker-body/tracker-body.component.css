@@ -1,0 +1,83 @@
+.main-container{
+    height: 100%;
+    background-color: #02214b;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.text-main{
+    height: 100%;
+    width: 50%;
+}
+
+.text-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+}
+
+.text-header{
+    font-family: "Aileron-Heavy";
+    color: #ffec93;
+}
+
+.text-header h1{
+    font-size: 4em;
+}
+
+.text-body{
+    font-family: "Aileron-Light";
+    padding-left: 7%;
+    padding-right: 7%;
+    padding-top: 5%;
+    text-align: center;
+}
+
+.text-body h6{
+    color: white;
+}
+
+.bottom-image{
+
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bottom-image img{
+    flex-shrink: 0;
+    max-width: 100%;
+    max-height: 100%
+}
+
+.data-main{
+    width: 50%;
+}
+
+.date-enter{
+    padding: 5%;
+}
+
+.time-enter{
+    padding: 5%;
+}
+
+.form-date {
+    background-color: #ffec93;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.form-control{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}

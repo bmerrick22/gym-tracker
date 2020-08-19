@@ -2,12 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { GymDataComponent } from './gym-data/gym-data.component';
+import { TrackerBodyComponent } from './tracker-body/tracker-body.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GymDataComponent
+    TrackerBodyComponent,
   ],
   imports: [
     BrowserModule,
