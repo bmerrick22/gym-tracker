@@ -8,9 +8,7 @@ import { FormGroup, FormControl, FormArray, Validators, NgForm } from '@angular/
   styleUrls: ['./submit-data.component.css']
 })
 export class SubmitDataComponent implements OnInit {
-  REST_API_SERVER = 'http://127.0.0.1:8080';
-  //"https://gym-tracker-ben.uc.r.appspot.com";
-  api_data;
+  REST_API_SERVER = "https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
   submitInfo: FormGroup;
   timeEntry: string;
@@ -40,9 +38,8 @@ export class SubmitDataComponent implements OnInit {
     }
     //Retrieve the data from the API
     this.httpClient.get<any>(this.REST_API_SERVER + '/data', { headers }).subscribe(data => {
-      this.api_data = data;   //Store data
       console.log(data);      //Print data
-      this.buildTimeSlots();  //Add data
+      for (let entry of data) {this.timeSlots.push(entry.time)}
     });
   }
 
@@ -55,19 +52,12 @@ export class SubmitDataComponent implements OnInit {
     }
     //Retrieve the data from the API
     this.httpClient.post<any>(this.REST_API_SERVER + "/time-slot-check", postData).subscribe(data => {
+      console.log(data);
       this.checkData = data["availability"];
-      console.log("Returned availavibility value is:" + this.checkData)
       this.creatResponse();      
     });
   }
 
-
-  buildTimeSlots() {
-    console.log(this.api_data[0]);
-    for (let entry of this.api_data) {
-      this.timeSlots.push(entry.time)
-    }
-  }
 
   onSubmit() {
     this.submitted = true;
