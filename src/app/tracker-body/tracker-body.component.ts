@@ -1,36 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-tracker-body',
   templateUrl: './tracker-body.component.html',
   styleUrls: ['./tracker-body.component.css']
 })
 export class TrackerBodyComponent implements OnInit {
+  timeSlots = [];
   textHeader:string;
   textBody:string;
-  goldenDome:string = "assets/images/golden-dome.png";
-  REST_API_SERVER = "https://gym-tracker-ben.uc.r.appspot.com/data";
 
-  constructor(private httpClient: HttpClient) { 
+  constructor() { 
     this.buildText();
-    
   }
 
-  ngOnInit(): void {
-    this.getSlotData();
-  }
-
-  public getSlotData(){
-    //Set the headers for the the API
-    const headers = {
-      "accept": "application/json",
-      "content-type":"application/json"
-    }
-    //Retrieve the data from the API
-    this.httpClient.get<any>(this.REST_API_SERVER, {headers}).subscribe(info => {
-            console.log(info);
-        });
-  }
+  ngOnInit(): void {}
 
   buildText(){
     //Set temporary variables for the strings
@@ -44,5 +27,6 @@ export class TrackerBodyComponent implements OnInit {
     this.textHeader = header;
     this.textBody = body;
   }
+
 
 }

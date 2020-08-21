@@ -1,0 +1,35 @@
+<form (ngSubmit)="onSubmit()" #submitDataForm="ngForm" class="submit-data-container">
+    <div class="enter-info container-fluid">
+        <div class="entry">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="name">Date</label>
+                </div>
+                <input type="date" class="form-control" id="dateEntry" required [(ngModel)]="dateEntry" name="dateEntry"
+                    placeholder="mm/dd/yyyy">
+            </div>
+        </div>
+        <div class="entry">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="timeEntry">Time Slots</label>
+                </div>
+                <select class="input-field custom-select form-control" id="timEntry" required [(ngModel)]="timeEntry"
+                    name="timeEntry">
+                    <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">{{timeSlot}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="submit-enter">
+            <button type="submit" class="submitButton btn btn-success">Let's check!</button>
+        </div>
+    </div>
+</form>
+<div #responseContainer class="availability-container">
+    <div class="response-intro">
+        <h4>{{introText}}</h4>
+    </div>
+    <div class="response-text">
+        <h4 #checkResponse >{{responseText}}</h4>
+    </div>
+</div>
