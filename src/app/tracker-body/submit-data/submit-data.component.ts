@@ -8,7 +8,8 @@ import { FormGroup, FormControl, FormArray, Validators, NgForm } from '@angular/
   styleUrls: ['./submit-data.component.css']
 })
 export class SubmitDataComponent implements OnInit {
-  REST_API_SERVER = 'http://127.0.0.1:8080/';
+  REST_API_SERVER = "https://gym-tracker-ben.uc.r.appspot.com";
+  //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
   submitInfo: FormGroup;
@@ -20,6 +21,7 @@ export class SubmitDataComponent implements OnInit {
   introText: string = "Your selected time slot is: ";
   responseText: string = "Available";
   checkData: number = 2;
+  smithCenterLink:string = "https://recregister.nd.edu/Program/GetProgramDetails?courseId=8f5a4077-925d-454f-8cc6-6bed8e1dfc97&semesterId=00000000-0000-0000-0000-000000000000";
 
   constructor(private httpClient: HttpClient) { }
 
