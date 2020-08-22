@@ -52,3 +52,7 @@
     font-family: 'Aileron-Heavy';
     color: lime;
 }
+
+.letsGo{
+    -webkit-appearance: none;
+}
