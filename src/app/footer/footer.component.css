@@ -1,11 +1,16 @@
 .footer-container{
     height: 20%;
     background-color: #02214b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
 
 
-.bottom-image img{
-    max-width: 10%;
+.buy-coffee{
+    color:white;
+    background-color: orange;
+    font-family: "Aileron-UltraLight";
 }

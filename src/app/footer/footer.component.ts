@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
   goldenDome: string = "assets/images/golden-dome.png";
+  buyMeCoffeeLink:string="https://www.buymeacoffee.com/bmerrick";
   constructor() { }
 
   ngOnInit(): void {
