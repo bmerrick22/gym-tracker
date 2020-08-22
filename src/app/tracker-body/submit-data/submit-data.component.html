@@ -6,7 +6,7 @@
                     <label class="input-group-text" for="name">Date</label>
                 </div>
                 <input type="date" class="form-control" id="dateEntry" required [(ngModel)]="dateEntry" name="dateEntry"
-                    placeholder="mm/dd/yyyy">
+                    placeholder="yyyy-mm-dd">
             </div>
         </div>
         <div class="entry">
@@ -16,6 +16,7 @@
                 </div>
                 <select class="input-field custom-select form-control" id="timEntry" required [(ngModel)]="timeEntry"
                     name="timeEntry">
+                    <option value="">Select</option>
                     <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">{{timeSlot}}</option>
                 </select>
             </div>
@@ -25,11 +26,16 @@
         </div>
     </div>
 </form>
-<div #responseContainer class="availability-container">
-    <div class="response-intro">
-        <h4>{{introText}}</h4>
+<div *ngIf="submitted" class="availability-container">
+    <div class="availability-text">
+        <div class="response-intro">
+            <h4>{{introText}}</h4>
+        </div>
+        <div [ngStyle]="{'color': (checkData==0) ? 'limegreen': 'red'}" class="response-text">
+            <h4>{{responseText}}</h4>
+        </div>
     </div>
-    <div class="response-text">
-        <h4 #checkResponse >{{responseText}}</h4>
+    <div *ngIf="checkData==0 "class="sign-up-btn">
+        <a href="www.google.com" type="button" class="btn btn-primary">Let's Go!</a>
     </div>
 </div>

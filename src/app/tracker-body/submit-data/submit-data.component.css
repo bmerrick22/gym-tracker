@@ -24,14 +24,21 @@
    border-color: #ffec93;  
 }
 
-.input-field{
+.form-control{
     background-color: white;
    font-family: "Aileron-UltraLight";
    border-color: #ffec93; 
 }
 
 .availability-container{
-    display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.availability-text{
+    display: flex;
     justify-content: center;
     align-items: center;
 }

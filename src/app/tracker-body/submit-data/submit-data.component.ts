@@ -8,38 +8,36 @@ import { FormGroup, FormControl, FormArray, Validators, NgForm } from '@angular/
   styleUrls: ['./submit-data.component.css']
 })
 export class SubmitDataComponent implements OnInit {
-  REST_API_SERVER = "https://gym-tracker-ben.uc.r.appspot.com";
+  REST_API_SERVER = 'http://127.0.0.1:8080/';
+  //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
   submitInfo: FormGroup;
   timeEntry: string;
   dateEntry: string;
   submitted = false;
+  test:boolean = true;
 
   introText: string = "Your selected time slot is: ";
   responseText: string = "Available";
   checkData: number = 2;
-  @ViewChild("checkResponse") response: ElementRef;
-  @ViewChild("responseContainer") responseContainer: ElementRef;
-
-
 
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
-    this.getSlotData();
+    this.getTimeData();
   }
 
 
-  public getSlotData() {
+  public getTimeData() {
     //Set the headers for the the API
     const headers = {
       "accept": "application/json",
       "content-type": "application/json"
     }
     //Retrieve the data from the API
-    this.httpClient.get<any>(this.REST_API_SERVER + '/data', { headers }).subscribe(data => {
+    this.httpClient.get<any>(this.REST_API_SERVER + '/time-data', { headers }).subscribe(data => {
       console.log(data);      //Print data
-      for (let entry of data) {this.timeSlots.push(entry.time)}
+      for (let entry of data["time-slots"]) {this.timeSlots.push(entry)}
     });
   }
 
@@ -61,13 +59,12 @@ export class SubmitDataComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.creatResponse();
+   //this.creatResponse();
     this.postSlotData();
   }
 
   creatResponse() {
     let color:string;
-    this.responseContainer.nativeElement.style.display = 'flex';
     switch (this.checkData) {
       case 0:
         color = '#98FB98';
@@ -86,8 +83,8 @@ export class SubmitDataComponent implements OnInit {
         this.responseText = "Please Choose a Time and Date."
         break;
     }
-     //Assign the color
-     this.response.nativeElement.style.color = color;
+     //Change HTML elements
+     //this.response.nativeElement.style.color = color;
   }
 
 
