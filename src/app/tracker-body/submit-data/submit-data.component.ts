@@ -8,7 +8,7 @@ import { FormGroup, FormControl, FormArray, Validators, NgForm } from '@angular/
   styleUrls: ['./submit-data.component.css']
 })
 export class SubmitDataComponent implements OnInit {
-  REST_API_SERVER = "https://gym-tracker-ben.uc.r.appspot.com";
+  REST_API_SERVER = 'http://127.0.0.1:8080/';
   //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];

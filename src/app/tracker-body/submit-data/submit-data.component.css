@@ -30,6 +30,12 @@
    border-color: #ffec93; 
 }
 
+.submit-button{
+    background-color: #ffec93;
+    color: #02214b
+
+}
+
 .availability-container{
     display: flex;
     flex-direction: column;

@@ -1,10 +1,28 @@
 .footer-container{
-    height: 20%;
+    height: 40%;
     background-color: #02214b;
+    position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;
 
+}
+
+.bottom-image{
+    position: absolute;
+    bottom: 0%;
+    left: 10%;
+    height: 100%;
+    width: 40%;
+}
+
+.bottom-image img{
+    max-width:100%;
+max-height:100%;
+}
+
+.coffee-link{
+    position: absolute;
+    right: 1%;
+    bottom: 5%;
 }
 
 

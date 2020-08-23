@@ -3,26 +3,40 @@
         <div class="entry">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="name">Date</label>
+                    <label class="input-group-text" for="date">Date</label>
                 </div>
-                <input type="date" class="form-control" id="dateEntry" required [(ngModel)]="dateEntry" name="dateEntry"
-                    placeholder="yyyy-mm-dd">
+                <input 
+                    type="date" 
+                    class="form-control" 
+                    id="date" 
+                    required 
+                    [(ngModel)]="dateEntry" 
+                    name="date"
+                    placeholder="yyyy-mm-dd"
+                    #date="ngModel"
+                >
+            </div>
+            <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
+                Date is required
             </div>
         </div>
         <div class="entry">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="timeEntry">Time Slots</label>
+                    <label class="input-group-text" for="time">Time Slots</label>
                 </div>
-                <select class="input-field custom-select form-control" id="timEntry" required [(ngModel)]="timeEntry"
-                    name="timeEntry">
+                <select class="input-field custom-select form-control" id="time" required [(ngModel)]="timeEntry"
+                    name="time" #time="ngModel">
                     <option value="">Select</option>
                     <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">{{timeSlot}}</option>
                 </select>
             </div>
+            <div *ngIf="time.invalid && (time.dirty || time.touched)" class="alert alert-danger">
+                Time Slot is required
+            </div>
         </div>
         <div class="submit-enter">
-            <button type="submit" class="submitButton btn btn-success">Let's check!</button>
+            <button [disabled]="!submitDataForm.form.valid"type="submit" class="submit-button btn btn-light">Let's check!</button>
         </div>
     </div>
 </form>
@@ -35,7 +49,7 @@
             <h4>{{responseText}}</h4>
         </div>
     </div>
-    <div *ngIf="checkData==0 "class="sign-up-btn">
-        <a [href]="smithCenterLink" type="button" class="letsGo btn btn-primary">Let's Go!</a>
+    <div *ngIf="checkData==0 " class="sign-up-btn">
+        <a [href]="smithCenterLink" type="button" class="letsGo btn btn-outline-light">Let's Go!</a>
     </div>
 </div>
