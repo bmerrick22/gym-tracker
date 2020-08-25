@@ -19,21 +19,20 @@
 
 
 .input-group-text{
-   background-color: #ffec93;
-   font-family: "Aileron-Light";
-   border-color: #ffec93;  
+    background-color: #ffec93;
+    font-family: "Aileron-Light";
+    border-color: #ffec93;  
 }
 
 .form-control{
     background-color: white;
-   font-family: "Aileron-UltraLight";
-   border-color: #ffec93; 
+    font-family: "Aileron-UltraLight";
+    border-color: #ffec93; 
 }
 
 .submit-button{
     background-color: #ffec93;
     color: #02214b
-
 }
 
 .availability-container{
@@ -61,4 +60,24 @@
 
 .letsGo{
     -webkit-appearance: none;
+}
+
+.email-data-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert{
+    text-align: center;
+    position: absolute;
+    width: 20%;
+}
+
+.email-text{
+    color: white;
+    text-align: center;
+    font-family: 'Aileron-Light';
+    width: 40%;
 }

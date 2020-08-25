@@ -5,22 +5,14 @@
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="date">Date</label>
                 </div>
-                <input 
-                    type="date" 
-                    class="form-control" 
-                    id="date" 
-                    required 
-                    [(ngModel)]="dateEntry" 
-                    name="date"
-                    placeholder="yyyy-mm-dd"
-                    #date="ngModel"
-                >
+                <input type="date" class="form-control" id="date" required [(ngModel)]="dateEntry" name="date"
+                    placeholder="yyyy-mm-dd" #date="ngModel" (blur)="validateDate()">
             </div>
             <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
                 Date is required
             </div>
         </div>
-        <div class="entry">
+        <div *ngIf="!emailAvailability" class="entry">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="time">Time Slots</label>
@@ -35,12 +27,13 @@
                 Time Slot is required
             </div>
         </div>
-        <div class="submit-enter">
-            <button [disabled]="!submitDataForm.form.valid"type="submit" class="submit-button btn btn-light">Let's check!</button>
+        <div *ngIf="!emailAvailability" class="submit-enter">
+            <button [disabled]="!submitDataForm.form.valid" type="submit" class="submit-button btn btn-light">Let's
+                check!</button>
         </div>
     </div>
 </form>
-<div *ngIf="submitted" class="availability-container">
+<div *ngIf="showAvailability" class="availability-container">
     <div class="availability-text">
         <div class="response-intro">
             <h4>{{introText}}</h4>
@@ -49,7 +42,30 @@
             <h4>{{responseText}}</h4>
         </div>
     </div>
-    <div *ngIf="checkData==0 " class="sign-up-btn">
-        <a [href]="smithCenterLink" type="button" class="letsGo btn btn-outline-light">Let's Go!</a>
+    <div *ngIf="checkData==0" class="sign-up-btn">
+        <a [href]="smithCenterLink" type="button" class="letsGo btn btn-outline-light">Sign Up!</a>
     </div>
+</div>
+<div *ngIf="emailAvailability" class="email-signup">
+    <form (ngSubmit)="onEmailSubmit()" #emailDataForm="ngForm" class="email-data-container">
+        <div class="email-text">
+            <h4>{{emailText}}</h4>
+        </div>
+        <div class="entry">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="email">Email</label>
+                </div>
+                <input type="email" class="form-control" id="email" required [(ngModel)]="emailEntry" name="email"
+                    placeholder="your-email@provider.com" #email="ngModel">
+            </div>
+        </div>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+            Email is required
+        </div>
+        <div class="email-enter">
+            <button [disabled]="!emailDataForm.form.valid" type="submit" class="submit-button btn btn-light">Notify
+                Me!</button>
+        </div>
+    </form>
 </div>

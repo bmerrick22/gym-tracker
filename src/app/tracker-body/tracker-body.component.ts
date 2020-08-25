@@ -18,9 +18,9 @@ export class TrackerBodyComponent implements OnInit {
   buildText(){
     //Set temporary variables for the strings
     let header:string = "Welcome!";
-    let body:string = `Are you struggling to sign up for the a gym slot at the Smitch Center? Well you
+    let body:string = `Are you struggling to sign up for the a gym slot at the Smith Center? Well you
     have come to the right place! My name is Ben and I developed this website to track the availability of
-    workout times at the Smitch Center and notify you if and when the desired is open. Enter the date, pick 
+    workout times at the Smith Center and notify you if and when the desired is open. Enter the date, pick 
     a time range, and then check it's availability! 
     `;
     //Assign the variables to the bound html content
