@@ -6,6 +6,7 @@ import { TrackerBodyComponent } from './tracker-body/tracker-body.component';
 import { SubmitDataComponent } from './tracker-body/submit-data/submit-data.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { FooterComponent } from './footer/footer.component';
     TrackerBodyComponent,
     SubmitDataComponent,
     FooterComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,

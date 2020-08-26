@@ -1,71 +1,53 @@
-<form (ngSubmit)="onSubmit()" #submitDataForm="ngForm" class="submit-data-container">
-    <div class="enter-info container-fluid">
-        <div class="entry">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="date">Date</label>
+<form novalidate [formGroup]="myform" class="submit-data-container">
+    <div formGroupName="slot" class="enter-info container-fluid">
+        <div class="date-enter">
+            <div class="entry">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="date">Date</label>
+                    </div>
+                    <input type="date" class="form-control" formControlName="date" id="date" placeholder="yyyy-mm-dd"
+                        required>
+                    <div class="form-control-feedback" *ngIf="date.errors && (date.dirty || date.touched)">
+                        <div class="alert alert-danger" *ngIf="date.errors.required">Date is required</div>
+                        <div class="alert alert-danger" *ngIf="date.errors.pattern">Not a valid date</div>
+                    </div>
                 </div>
-                <input type="date" class="form-control" id="date" required [(ngModel)]="dateEntry" name="date"
-                    placeholder="yyyy-mm-dd" #date="ngModel" (blur)="validateDate()">
             </div>
-            <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
-                Date is required
+            <div class="submit-enter">
+                <button (click)="getTimes()" [disabled]="date.invalid" type="submit"
+                    class="submit-button btn btn-light">Find Times!</button>
             </div>
         </div>
-        <div *ngIf="!emailAvailability" class="entry">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="time">Time Slots</label>
-                </div>
-                <select class="input-field custom-select form-control" id="time" required [(ngModel)]="timeEntry"
-                    name="time" #time="ngModel">
-                    <option value="">Select</option>
-                    <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">{{timeSlot}}</option>
-                </select>
-            </div>
-            <div *ngIf="time.invalid && (time.dirty || time.touched)" class="alert alert-danger">
-                Time Slot is required
-            </div>
+
+        <div *ngIf="spotsAvailable" class="entry">
+            <ul class="list-group">
+                <li *ngFor="let time of timeSlots;" class="list-group-item">
+                    {{time}}
+                </li>
+            </ul>
         </div>
-        <div *ngIf="!emailAvailability" class="submit-enter">
-            <button [disabled]="!submitDataForm.form.valid" type="submit" class="submit-button btn btn-light">Let's
-                check!</button>
+
+        <div *ngIf="time.valid" class="sign-up">
+            <button [disabled]="time.invalid" type="submit" class="btn btn-outline-light">Sign Up!</button>
+        </div>
+    </div>
+    <div *ngIf="emailNotify" class="email-entry">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="email">Email</label>
+            </div>
+            <input type="email" class="form-control" formControlName="email" id="email"
+                placeholder="email@provider.com">
+        </div>
+        <div class="form-control-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
+            <p *ngIf="email.errors.required">Email is required</p>
+            <p *ngIf="email.errors.pattern">The email address must contain at least the @ character</p>
+            <p *ngIf="email.errors.emailDomain">Email must end with "nd.edu" domain</p>
+        </div>
+        <div *ngIf="email.valid" class="email-notify">
+            <button (click)="emailSubmit()" [disabled]="email.invalid" type="submit" class="btn btn-outline-light">Email Me When
+                Available!</button>
         </div>
     </div>
 </form>
-<div *ngIf="showAvailability" class="availability-container">
-    <div class="availability-text">
-        <div class="response-intro">
-            <h4>{{introText}}</h4>
-        </div>
-        <div [ngStyle]="{'color': (checkData==0) ? 'limegreen': 'red'}" class="response-text">
-            <h4>{{responseText}}</h4>
-        </div>
-    </div>
-    <div *ngIf="checkData==0" class="sign-up-btn">
-        <a [href]="smithCenterLink" type="button" class="letsGo btn btn-outline-light">Sign Up!</a>
-    </div>
-</div>
-<div *ngIf="emailAvailability" class="email-signup">
-    <form (ngSubmit)="onEmailSubmit()" #emailDataForm="ngForm" class="email-data-container">
-        <div class="email-text">
-            <h4>{{emailText}}</h4>
-        </div>
-        <div class="entry">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="email">Email</label>
-                </div>
-                <input type="email" class="form-control" id="email" required [(ngModel)]="emailEntry" name="email"
-                    placeholder="your-email@provider.com" #email="ngModel">
-            </div>
-        </div>
-        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-            Email is required
-        </div>
-        <div class="email-enter">
-            <button [disabled]="!emailDataForm.form.valid" type="submit" class="submit-button btn btn-light">Notify
-                Me!</button>
-        </div>
-    </form>
-</div>
