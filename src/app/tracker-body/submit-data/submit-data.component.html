@@ -8,10 +8,10 @@
                     </div>
                     <input type="date" class="form-control" formControlName="date" id="date" placeholder="yyyy-mm-dd"
                         required>
-                    <div class="form-control-feedback" *ngIf="date.errors && (date.dirty || date.touched)">
-                        <div class="alert alert-danger" *ngIf="date.errors.required">Date is required</div>
-                        <div class="alert alert-danger" *ngIf="date.errors.pattern">Not a valid date</div>
-                    </div>
+                </div>
+                <div class="form-control-feedback" *ngIf="date.errors && (date.dirty || date.touched)">
+                    <p class="error" *ngIf="date.errors.required">Date is required</p>
+                    <p class="error" *ngIf="date.errors.pattern || date.errors.dateRange">Invalid date entry</p>
                 </div>
             </div>
             <div class="submit-enter">
@@ -19,13 +19,17 @@
                     class="submit-button btn btn-light">Find Times!</button>
             </div>
         </div>
-
-        <div *ngIf="spotsAvailable" class="entry">
-            <ul class="list-group">
-                <li *ngFor="let time of timeSlots;" class="list-group-item">
+        <div *ngIf="noSpots" class="no-spots-text">
+            <h5 class="spots-text">{{noSpotsText}}</h5>
+            <h5 class="spots-text">Please select another day.</h5>
+        </div>
+        <div *ngIf="spotsAvailable" class="time-slots">
+            <h5 class="spots-text">{{spotsText}}</h5>
+            <div>
+                <a *ngFor="let time of timeSlots;" [href]="smithCenterLink" class="btn btn-outline-light">
                     {{time}}
-                </li>
-            </ul>
+                </a>
+            </div>
         </div>
 
         <div *ngIf="time.valid" class="sign-up">
@@ -33,21 +37,21 @@
         </div>
     </div>
     <div *ngIf="emailNotify" class="email-entry">
+        <h5 class="email-text">{{emailText}}</h5>
         <div class="input-group">
             <div class="input-group-prepend">
                 <label class="input-group-text" for="email">Email</label>
             </div>
-            <input type="email" class="form-control" formControlName="email" id="email"
-                placeholder="email@provider.com">
+            <input type="email" class="form-control" formControlName="email" id="email" placeholder="email@nd.edu">
         </div>
         <div class="form-control-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
-            <p *ngIf="email.errors.required">Email is required</p>
-            <p *ngIf="email.errors.pattern">The email address must contain at least the @ character</p>
-            <p *ngIf="email.errors.emailDomain">Email must end with "nd.edu" domain</p>
+            <p class="error" *ngIf="email.errors.required">Email is required</p>
+            <p class="error" *ngIf="email.errors.pattern">The email address must contain at least the @ character</p>
+            <p class="error" *ngIf="email.errors.emailDomain">Email must be ND email</p>
         </div>
         <div *ngIf="email.valid" class="email-notify">
-            <button (click)="emailSubmit()" [disabled]="email.invalid" type="submit" class="btn btn-outline-light">Email Me When
-                Available!</button>
+            <button (click)="emailSubmit()" [disabled]="email.invalid" type="submit" class="btn btn-outline-light">Email
+                Me When Available!</button>
         </div>
     </div>
 </form>

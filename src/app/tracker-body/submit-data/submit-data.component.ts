@@ -9,8 +9,8 @@ import {
   FormBuilder
 } from '@angular/forms';
 
-function emailDomainValidator(control: FormControl) {
-  let email = control.value;
+function emailDomainValidator(form: FormControl) {
+  let email = form.value;
   if (email && email.indexOf("@") != -1) {
     let [_, domain] = email.split("@");
     if (domain !== "nd.edu") {
@@ -21,6 +21,19 @@ function emailDomainValidator(control: FormControl) {
       }
     }
   }
+  return null;
+}
+
+function dateValidator(form: FormControl){
+  let date = form.value;
+  let currentDate = new Date();
+  currentDate.setHours(0,0,0,0);
+  let enterDate = new Date(date);
+  enterDate.setHours(0,0,0,0);
+  console.log(currentDate);
+  console.log(enterDate);
+
+  if(enterDate < currentDate){ return {'dateRange' : true} }
   return null;
 }
 
@@ -43,11 +56,10 @@ export class SubmitDataComponent implements OnInit {
   //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
-
-  introText: string = "Your selected time slot is: ";
-  responseText: string = "";
+  noSpotsText:string = "We're sorry, but all time slots have been filled for that day.";
+  emailText:string ="That time slot is not yet available! Enter an ND email to receive a notification when the slot is available.";
+  spotsText: string = "Select an available time slot to sign up!";
   smithCenterLink: string = "https://recregister.nd.edu/Program/GetProgramDetails?courseId=8f5a4077-925d-454f-8cc6-6bed8e1dfc97&semesterId=00000000-0000-0000-0000-000000000000";
-  emailText: string;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -100,7 +112,8 @@ export class SubmitDataComponent implements OnInit {
   createFormControls() {
     this.date = new FormControl('', [
       Validators.required,
-      Validators.pattern('[0-9]{4}-[0-9]{2}-[0-9]{2}')
+      Validators.pattern('[0-9]{4}-[0-9]{2}-[0-9]{2}'),
+      //dateValidator
     ]);
     this.time = new FormControl('', [
       Validators.required

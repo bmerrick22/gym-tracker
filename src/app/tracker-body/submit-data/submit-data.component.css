@@ -20,8 +20,13 @@
 }
 
 .entry{
+    display: block;
     padding: 3%;
     width: 40%;
+}
+
+.alert{
+    position: absolute;
 }
 
 
@@ -42,31 +47,21 @@
     color: #02214b;
 }
 
-.availability-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.availability-text{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.response-intro{
+.spots-text{
     color: white;
     font-family: 'Aileron-Light';
-    padding-right: 5px;
 }
 
-.response-text{
-    font-family: 'Aileron-Heavy';
-    color: lime;
+.time-slots{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.letsGo{
+.btn{
     -webkit-appearance: none;
+    font-family: "Aileron-Light";
 }
 
 .email-data-container{
@@ -74,19 +69,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.alert{
-    text-align: center;
-    position: absolute;
-    width: 20%;
-}
-
-.email-text{
-    color: white;
-    text-align: center;
-    font-family: 'Aileron-Light';
-    width: 40%;
 }
 
 .form-control-feedback{
@@ -100,8 +82,25 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    width: 50%;
 }
 
 .email-notify{
     padding-top: 5%;
+}
+
+.email-text{
+    color: white;
+    text-align: center;
+    font-family: 'Aileron-Light';
+}
+
+.error{
+    font-family: 'Aileron-Light';
+    color: lightcoral;
+}
+
+.no-spots-text{
+    font-family: 'Aileron-Light';
+    text-align: center; 
 }
