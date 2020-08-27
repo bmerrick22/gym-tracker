@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
-  ReactiveFormsModule,
-  FormsModule,
   FormGroup,
   FormControl,
   Validators,
@@ -22,16 +20,16 @@ function emailDomainValidator(form: FormControl) {
   return null;
 }
 
-function dateValidator(form: FormControl){
+function dateValidator(form: FormControl) {
   let currentDate = new Date();
-  currentDate.setHours(0,0,0,0);
+  currentDate.setHours(0, 0, 0, 0);
 
-  let dateArray = form.value.split("-");
-  let year = dateArray[0];
-  let month = parseInt(dateArray[1], 10) - 1;
-  let date = dateArray[2];
+  let dateArray = form.value.split("/");
+  let month = dateArray[0]-1;
+  let date = parseInt(dateArray[1], 10);
+  let year = dateArray[2];
   let enterDate = new Date(year, month, date);
-  enterDate.setHours(0,0,0,0);
+  enterDate.setHours(0, 0, 0, 0);
   console.log(currentDate);
   console.log(enterDate);
 
@@ -41,7 +39,7 @@ function dateValidator(form: FormControl){
   let futureDay = futureArray[2];
   let futureDate = new Date(year, month, date);
   */
-  if((enterDate < currentDate)){ return {'dateRange' : true} }
+  if (currentDate > enterDate) { return { 'dateRange': true } }
   return null;
 }
 
@@ -56,14 +54,14 @@ export class SubmitDataComponent implements OnInit {
   time: FormControl;
   email: FormControl;
   displayOption: number = -1;
-  emailExists:boolean = false;
+  emailExists: boolean = false;
 
   api = 'http://127.0.0.1:8080/';
   //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
-  noSpotsText:string = "We're sorry, but all time slots have been filled for that day.";
-  emailText:string ="That time slot is not yet available! Enter an ND email to receive a notification when the slot is available.";
+  noSpotsText: string = "We're sorry, but all time slots have been filled for that day.";
+  emailText: string = "That time slot is not yet available! Enter an ND email to receive a notification when the slot is available.";
   spotsText: string = "Select an available time slot to sign up!";
   smithCenterLink: string = "https://recregister.nd.edu/Program/GetProgramDetails?courseId=8f5a4077-925d-454f-8cc6-6bed8e1dfc97&semesterId=00000000-0000-0000-0000-000000000000";
 
@@ -80,12 +78,19 @@ export class SubmitDataComponent implements OnInit {
   }
 
   public getTimes() {
+    //Format time
+    let timeArray = this.date.value.split("/");
+    let month = timeArray[0];
+    let day = parseInt(timeArray[1], 10);
+    let year = timeArray[2];
+    let subDate = year + "-" + month + "-" + day;
+    console.log(subDate);
     //Update variables
     this.timeSlots = [];
 
     //Create body of POST request
     let postData = {
-      date: this.date.value
+      date: subDate
     }
     //Retrieve the data from the API
     this.httpClient.post<any>(this.api + "/api/retrieve-times", postData).subscribe(data => {
@@ -101,7 +106,7 @@ export class SubmitDataComponent implements OnInit {
         console.log("Spots available");
         this.displayOption = 0; //We want FIRST option of DISPLAYING TIMES
         //Push times onto time slots
-        for (let time of data["times"]) { this.timeSlots.push(time) }  
+        for (let time of data["times"]) { this.timeSlots.push(time) }
       }
     });
   }
@@ -114,9 +119,9 @@ export class SubmitDataComponent implements OnInit {
     //Retrieve the data from the API
     this.httpClient.post<any>(this.api + "/api/sign-up", postData).subscribe(data => {
       console.log(data);
-      if(data["status"] == "failure"){
+      if (data["status"] == "failure") {
         this.emailExists = true;
-      } else{
+      } else {
         this.emailExists = false;
         this.resetDisplay();
       }
@@ -126,8 +131,8 @@ export class SubmitDataComponent implements OnInit {
   createFormControls() {
     this.date = new FormControl('', [
       Validators.required,
-      Validators.pattern('[0-9]{4}-[0-9]{2}-[0-9]{2}'),
-      //dateValidator
+      Validators.pattern('[0-9]{2}/[0-9]{2}/[0-9]{4}'),
+      dateValidator
     ]);
     this.time = new FormControl('', [
       Validators.required
@@ -149,7 +154,7 @@ export class SubmitDataComponent implements OnInit {
     });
   }
 
-  resetDisplay(){
+  resetDisplay() {
     console.log("Resetting display - Only showing date sign up");
     this.displayOption = -1;
     this.emailExists = false;
