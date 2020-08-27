@@ -15,9 +15,7 @@ function emailDomainValidator(form: FormControl) {
     let [_, domain] = email.split("@");
     if (domain !== "nd.edu") {
       return {
-        emailDomain: {
-          parsedDomain: domain
-        }
+        emailDomain: { parsedDomain: domain }
       }
     }
   }
@@ -25,15 +23,25 @@ function emailDomainValidator(form: FormControl) {
 }
 
 function dateValidator(form: FormControl){
-  let date = form.value;
   let currentDate = new Date();
   currentDate.setHours(0,0,0,0);
-  let enterDate = new Date(date);
+
+  let dateArray = form.value.split("-");
+  let year = dateArray[0];
+  let month = parseInt(dateArray[1], 10) - 1;
+  let date = dateArray[2];
+  let enterDate = new Date(year, month, date);
   enterDate.setHours(0,0,0,0);
   console.log(currentDate);
   console.log(enterDate);
 
-  if(enterDate < currentDate){ return {'dateRange' : true} }
+  /*let futureArray = "2020-11-30".split("-");
+  let futureYear = futureArray[0];
+  let futureMonth = parseInt(futureArray[1], 10) - 1;
+  let futureDay = futureArray[2];
+  let futureDate = new Date(year, month, date);
+  */
+  if((enterDate < currentDate)){ return {'dateRange' : true} }
   return null;
 }
 
@@ -47,12 +55,10 @@ export class SubmitDataComponent implements OnInit {
   date: FormControl;
   time: FormControl;
   email: FormControl;
-  submittedDate: boolean = false;
-  emailNotify = false;
-  spotsAvailable = false;
-  noSpots = false;
+  displayOption: number = -1;
+  emailExists:boolean = false;
 
-  REST_API_SERVER = 'http://127.0.0.1:8080/';
+  api = 'http://127.0.0.1:8080/';
   //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
@@ -75,25 +81,27 @@ export class SubmitDataComponent implements OnInit {
 
   public getTimes() {
     //Update variables
-    this.submittedDate = true;
     this.timeSlots = [];
-    this.emailNotify = false;
-    this.spotsAvailable = false;
 
     //Create body of POST request
     let postData = {
       date: this.date.value
     }
     //Retrieve the data from the API
-    this.httpClient.post<any>(this.REST_API_SERVER + "/api/retrieve-times", postData).subscribe(data => {
+    this.httpClient.post<any>(this.api + "/api/retrieve-times", postData).subscribe(data => {
       console.log(data);
+      //Sort the data
       if (data["times"] === "email") {
-        this.emailNotify = true;
+        console.log("Email sign up");
+        this.displayOption = 2;     //We want THIRD option of EMAIL SIGNUP
       } else if (data["times"].length == 0) {
-        this.noSpots = true;
-      } else {
-        this.spotsAvailable = true;
-        for (let time of data["times"]) { this.timeSlots.push(time) }
+        console.log("No spots available");
+        this.displayOption = 1;     //We want SECOND option of NO SPOTS
+      } else if (data["times"].length > 0) {
+        console.log("Spots available");
+        this.displayOption = 0; //We want FIRST option of DISPLAYING TIMES
+        //Push times onto time slots
+        for (let time of data["times"]) { this.timeSlots.push(time) }  
       }
     });
   }
@@ -104,8 +112,14 @@ export class SubmitDataComponent implements OnInit {
       email: this.email.value
     }
     //Retrieve the data from the API
-    this.httpClient.post<any>(this.REST_API_SERVER + "/api/sign-up", postData).subscribe(data => {
+    this.httpClient.post<any>(this.api + "/api/sign-up", postData).subscribe(data => {
       console.log(data);
+      if(data["status"] == "failure"){
+        this.emailExists = true;
+      } else{
+        this.emailExists = false;
+        this.resetDisplay();
+      }
     });
   }
 
@@ -133,6 +147,13 @@ export class SubmitDataComponent implements OnInit {
       }),
       email: this.email,
     });
+  }
+
+  resetDisplay(){
+    console.log("Resetting display - Only showing date sign up");
+    this.displayOption = -1;
+    this.emailExists = false;
+    this.myform.reset();
   }
 
 

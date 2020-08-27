@@ -2,7 +2,7 @@
     <div formGroupName="slot" class="enter-info container-fluid">
         <div class="date-enter">
             <div class="entry">
-                <div class="input-group">
+                <div (click)="resetDisplay()" class="input-group">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="date">Date</label>
                     </div>
@@ -11,7 +11,7 @@
                 </div>
                 <div class="form-control-feedback" *ngIf="date.errors && (date.dirty || date.touched)">
                     <p class="error" *ngIf="date.errors.required">Date is required</p>
-                    <p class="error" *ngIf="date.errors.pattern || date.errors.dateRange">Invalid date entry</p>
+                    <p class="error" *ngIf="date.errors.pattern || date.errors.dateRange">Invalid date entry or not within range</p>
                 </div>
             </div>
             <div class="submit-enter">
@@ -19,11 +19,7 @@
                     class="submit-button btn btn-light">Find Times!</button>
             </div>
         </div>
-        <div *ngIf="noSpots" class="no-spots-text">
-            <h5 class="spots-text">{{noSpotsText}}</h5>
-            <h5 class="spots-text">Please select another day.</h5>
-        </div>
-        <div *ngIf="spotsAvailable" class="time-slots">
+        <div *ngIf="(displayOption === 0) && date.valid" class="time-slots">
             <h5 class="spots-text">{{spotsText}}</h5>
             <div>
                 <a *ngFor="let time of timeSlots;" [href]="smithCenterLink" class="btn btn-outline-light">
@@ -31,27 +27,32 @@
                 </a>
             </div>
         </div>
-
-        <div *ngIf="time.valid" class="sign-up">
-            <button [disabled]="time.invalid" type="submit" class="btn btn-outline-light">Sign Up!</button>
+        <div *ngIf="(displayOption === 1) && date.valid" class="no-spots-text">
+            <h5 class="spots-text">{{noSpotsText}}</h5>
+            <h5 class="spots-text">Please select another day.</h5>
         </div>
     </div>
-    <div *ngIf="emailNotify" class="email-entry">
+    <div *ngIf="(displayOption === 2) && date.valid" class="email-entry">
         <h5 class="email-text">{{emailText}}</h5>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <label class="input-group-text" for="email">Email</label>
+        <div class="entry-email">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="email">Email</label>
+                </div>
+                <input type="email" class="form-control" formControlName="email" id="email" placeholder="email@nd.edu">
             </div>
-            <input type="email" class="form-control" formControlName="email" id="email" placeholder="email@nd.edu">
-        </div>
-        <div class="form-control-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
-            <p class="error" *ngIf="email.errors.required">Email is required</p>
-            <p class="error" *ngIf="email.errors.pattern">The email address must contain at least the @ character</p>
-            <p class="error" *ngIf="email.errors.emailDomain">Email must be ND email</p>
+            <div class="form-control-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
+                <p class="error" *ngIf="email.errors.required">Email is required</p>
+                <p class="error" *ngIf="email.errors.pattern">The email address must contain at least the @ character
+                </p>
+                <p class="error" *ngIf="email.errors.emailDomain">Email must be ND email</p>
+                
+            </div>
         </div>
         <div *ngIf="email.valid" class="email-notify">
             <button (click)="emailSubmit()" [disabled]="email.invalid" type="submit" class="btn btn-outline-light">Email
                 Me When Available!</button>
+                <p class="error" *ngIf="emailExists">Email already in use</p>
         </div>
     </div>
 </form>
