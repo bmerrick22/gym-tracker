@@ -14,9 +14,9 @@
 
 .background-image{
     position: absolute;
-    opacity: 15%;
+    opacity: 0.25;
     z-index: 1;
-    flex-shrink: 2;
+    flex-shrink: 0;
     min-width: 100%;
     min-height: 100%;
 }
