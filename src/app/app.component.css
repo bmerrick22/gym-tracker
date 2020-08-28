@@ -1,0 +1,32 @@
+.component-body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    position: relative;
+    background-color: #02214b;
+    overflow: hidden;
+
+}
+
+.tracker-body{
+    z-index: 2;
+}
+
+
+.background-image{
+    position: absolute;
+    opacity: 15%;
+    z-index: 1;
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+
+.footer{
+    position: absolute;
+    bottom: 2%;
+    z-index: 2;
+
+}

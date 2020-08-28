@@ -17,11 +17,10 @@ export class TrackerBodyComponent implements OnInit {
 
   buildText(){
     //Set temporary variables for the strings
-    let header:string = "Welcome!";
-    let body:string = `Are you struggling to sign up for the a gym slot at the Smith Center? Well you
-    have come to the right place! My name is Ben and I developed this website to track the availability of
-    workout times at the Smith Center and notify you if and when the desired is open. Enter the date, pick 
-    a time range, and then check it's availability! 
+    let header:string = "Irish GymSense";
+    let body:string = ` 
+      Welcome to Irish GymSense! Irish GymSense tracks the availability for work out slots at the Smith Center. 
+      Only ND emails are allowed and only email notification per person. If you like my work, I also like beer!
     `;
     //Assign the variables to the bound html content
     this.textHeader = header;

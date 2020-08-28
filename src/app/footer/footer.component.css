@@ -1,33 +1,14 @@
 .footer-container{
-    height: 10%;
     background-color: #02214b;
-    /*position: relative;*/
     display: flex;
-
     justify-content: center;
     align-content: center;
 }
 
-/*.bottom-image{
-    position: absolute;
-    bottom: 0%;
-    left: 10%;
-    width: 40%;
-    display: flex;
-}
-
-.bottom-image img{
-    width:60%;
-    height: auto;
-    align-self: flex-end;
-
-}*/
-
-
-
-
-.buy-coffee{
+.buy-beer{
+    -webkit-appearance: none;
     color:white;
-    background-color: orange;
+    text-align: center;
     font-family: "Aileron-UltraLight";
 }
+

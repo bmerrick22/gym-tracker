@@ -61,7 +61,7 @@ export class SubmitDataComponent implements OnInit {
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
   noSpotsText: string = "We're sorry, but all time slots have been filled for that day.";
-  emailText: string = "That time slot is not yet available! Enter an ND email to receive a notification when the slot is available.";
+  emailText: string = "No slots available yet! Enter an ND email to receive a notification when slots are available.";
   spotsText: string = "Select an available time slot to sign up!";
   smithCenterLink: string = "https://recregister.nd.edu/Program/GetProgramDetails?courseId=8f5a4077-925d-454f-8cc6-6bed8e1dfc97&semesterId=00000000-0000-0000-0000-000000000000";
 
@@ -114,7 +114,8 @@ export class SubmitDataComponent implements OnInit {
   emailSubmit() {
     //Create body of POST request
     let postData = {
-      email: this.email.value
+      email: this.email.value,
+      date: this.date.value
     }
     //Retrieve the data from the API
     this.httpClient.post<any>(this.api + "/api/sign-up", postData).subscribe(data => {
@@ -132,7 +133,8 @@ export class SubmitDataComponent implements OnInit {
     this.date = new FormControl('', [
       Validators.required,
       Validators.pattern('[0-9]{2}/[0-9]{2}/[0-9]{4}'),
-      dateValidator
+
+      //dateValidator
     ]);
     this.time = new FormControl('', [
       Validators.required

@@ -19,7 +19,7 @@
     width: 100%;
 }
 
-.entry{
+.entry-errors{
     display: block;
     padding: 3%;
     width: 40%;
@@ -42,16 +42,18 @@
     color: #02214b;
 }
 
-.spots-text{
-    color: white;
-    font-family: 'Aileron-Light';
-}
-
-.time-slots{
+.time-spots{
+    padding-top: 2%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+
+.spots-text{
+    color: white;
+    font-family: 'Aileron-Light';
 }
 
 .btn{
@@ -59,25 +61,23 @@
     font-family: "Aileron-Light";
 }
 
-.email-data-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 .form-control-feedback{
     color: white;
     font-family: 'Aileron-Light';
 }
 
-.email-entry{
-    padding-top: 5%;
+.email-enter-container{
+    padding-top: 2%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 50%;
+}
+
+.email-enter{
+    display: block;
+    width: 100%;
 }
 
 .email-notify{
@@ -100,9 +100,6 @@
 .no-spots-text{
     font-family: 'Aileron-Light';
     text-align: center; 
+    padding-top: 3%;
 }
 
-.entry-email{
-    display: block;
-    width: 100%;
-}

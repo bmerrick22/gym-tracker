@@ -1,12 +1,12 @@
 <form novalidate [formGroup]="myform" class="submit-data-container">
     <div formGroupName="slot" class="enter-info container-fluid">
         <div class="date-enter">
-            <div class="entry">
+            <div class="entry-errors">
                 <div (click)="resetDisplay()" class="input-group">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="date">Date</label>
                     </div>
-                    <input type="date" class="form-control" formControlName="date" id="date" placeholder="mm/dd/yyy"
+                    <input type="date" class="form-control" formControlName="date" id="date" placeholder="mm/dd/yyyy"
                         required>
                 </div>
                 <div class="form-control-feedback" *ngIf="date.errors && (date.dirty || date.touched)">
@@ -14,14 +14,14 @@
                     <p class="error" *ngIf="date.errors.pattern || date.errors.dateRange">Invalid date entry or not within range</p>
                 </div>
             </div>
-            <div class="submit-enter">
+            <div class="entry-submit">
                 <button (click)="getTimes()" [disabled]="date.invalid" type="submit"
                     class="submit-button btn btn-light">Find Times!</button>
             </div>
         </div>
-        <div *ngIf="(displayOption === 0) && date.valid" class="time-slots">
+        <div *ngIf="(displayOption === 0) && date.valid" class="time-spots">
             <h5 class="spots-text">{{spotsText}}</h5>
-            <div>
+            <div class="spots-links">
                 <a *ngFor="let time of timeSlots;" [href]="smithCenterLink" class="btn btn-outline-light">
                     {{time}}
                 </a>
@@ -32,9 +32,9 @@
             <h5 class="spots-text">Please select another day.</h5>
         </div>
     </div>
-    <div *ngIf="(displayOption === 2) && date.valid" class="email-entry">
+    <div *ngIf="(displayOption === 2) && date.valid" class="email-enter-container">
         <h5 class="email-text">{{emailText}}</h5>
-        <div class="entry-email">
+        <div class="email-enter">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="email">Email</label>
@@ -46,7 +46,6 @@
                 <p class="error" *ngIf="email.errors.pattern">The email address must contain at least the @ character
                 </p>
                 <p class="error" *ngIf="email.errors.emailDomain">Email must be ND email</p>
-                
             </div>
         </div>
         <div *ngIf="email.valid" class="email-notify">
