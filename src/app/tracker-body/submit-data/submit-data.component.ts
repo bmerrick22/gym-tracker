@@ -56,6 +56,7 @@ export class SubmitDataComponent implements OnInit {
   displayOption: number = -1;
   emailExists: boolean = false;
   emailSuccess: boolean = false;
+  clicked: boolean = false;
   emailIcon = faCheckCircle;
   noSpotsIcon = faSadTear;
 
