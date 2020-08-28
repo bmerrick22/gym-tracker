@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { faCheckCircle, faSadTear } from '@fortawesome/free-regular-svg-icons';
 import {
   FormGroup,
   FormControl,
-  Validators,
-  FormBuilder
+  Validators
 } from '@angular/forms';
 
 function emailDomainValidator(form: FormControl) {
@@ -55,13 +55,16 @@ export class SubmitDataComponent implements OnInit {
   email: FormControl;
   displayOption: number = -1;
   emailExists: boolean = false;
+  emailSuccess: boolean = false;
+  emailIcon = faCheckCircle;
+  noSpotsIcon = faSadTear;
 
-  api = 'https://gym-tracker-ben.uc.r.appspot.com';
+  api = 'http://127.0.0.1:8080/';
   //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
   noSpotsText: string = "We're sorry, but all time slots have been filled for that day.";
-  emailText: string = "No slots available yet! Enter an ND email to receive a notification when slots are available.";
+  emailText: string = "No times listed yet! Enter email to receive a notification when slots are available.";
   spotsText: string = "Select an available time slot to sign up!";
   smithCenterLink: string = "https://recregister.nd.edu/Program/GetProgramDetails?courseId=8f5a4077-925d-454f-8cc6-6bed8e1dfc97&semesterId=00000000-0000-0000-0000-000000000000";
 
@@ -123,8 +126,10 @@ export class SubmitDataComponent implements OnInit {
       if (data["status"] == "failure") {
         this.emailExists = true;
       } else {
+        this.displayOption = -1;
         this.emailExists = false;
-        this.resetDisplay();
+        this.emailSuccess = true;
+        //this.resetDisplay();
       }
     });
   }
@@ -160,6 +165,7 @@ export class SubmitDataComponent implements OnInit {
     console.log("Resetting display - Only showing date sign up");
     this.displayOption = -1;
     this.emailExists = false;
+    this.emailSuccess = false;
     this.myform.reset();
   }
 

@@ -82,7 +82,7 @@
 
 .email-notify{
     padding-top: 5%;
-    text-align: center;
+
 }
 
 .email-text{
@@ -100,6 +100,37 @@
 .no-spots-text{
     font-family: 'Aileron-Light';
     text-align: center; 
-    padding-top: 3%;
+    padding-top: 2%;
+}
+
+.no-spots-icon{
+    color: #EA3C53;
+    font-size: 4em;
+}
+
+.email-success{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5%;
+}
+
+.success-text{
+    color: white;
+    text-align: center;
+    font-family: "Aileron-Light";
+    width: 75%;
+}
+
+.success-text h5{
+    color:#08f26e;
+    font-family: "Aileron-Heavy";
+}
+
+.success-icon{
+    color: #08f26e;
+    font-size: 4em;
+
 }
 

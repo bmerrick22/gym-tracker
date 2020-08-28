@@ -1,5 +1,5 @@
 <form novalidate [formGroup]="myform" class="submit-data-container">
-    <div formGroupName="slot" class="enter-info container-fluid">
+    <div *ngIf="!emailSuccess" formGroupName="slot" class="enter-info container-fluid">
         <div class="date-enter">
             <div class="entry-errors">
                 <div (click)="resetDisplay()" class="input-group">
@@ -11,7 +11,8 @@
                 </div>
                 <div class="form-control-feedback" *ngIf="date.errors && (date.dirty || date.touched)">
                     <p class="error" *ngIf="date.errors.required">Date is required</p>
-                    <p class="error" *ngIf="date.errors.pattern || date.errors.dateRange">Invalid date entry or not within range</p>
+                    <p class="error" *ngIf="date.errors.pattern || date.errors.dateRange">Invalid date entry or not
+                        within range</p>
                 </div>
             </div>
             <div class="entry-submit">
@@ -28,6 +29,7 @@
             </div>
         </div>
         <div *ngIf="(displayOption === 1) && date.valid" class="no-spots-text">
+            <fa-icon class="no-spots-icon" [icon]="noSpotsIcon" size="lg"></fa-icon>
             <h5 class="spots-text">{{noSpotsText}}</h5>
             <h5 class="spots-text">Please select another day.</h5>
         </div>
@@ -52,6 +54,13 @@
             <button (click)="emailSubmit()" [disabled]="email.invalid" type="submit" class="btn btn-outline-light">Email
                 Me When Available!</button>
                 <p class="error" *ngIf="emailExists">Email already in use</p>
+        </div>
+    </div>
+    <div *ngIf="emailSuccess" class="email-success">
+        <fa-icon class="success-icon" [icon]="emailIcon" size="lg"></fa-icon>
+        <div class="success-text">
+            <h5>Email Confirmed</h5>
+            <h6>We've sent you confirmation email and will notify you when your desired day is available</h6>
         </div>
     </div>
 </form>
