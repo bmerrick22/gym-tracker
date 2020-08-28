@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { faCheckCircle, faSadTear } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle, faCalendarTimes } from '@fortawesome/free-regular-svg-icons';
 import {
   FormGroup,
   FormControl,
@@ -21,25 +21,35 @@ function emailDomainValidator(form: FormControl) {
 }
 
 function dateValidator(form: FormControl) {
+  if (!form.value)
+    return;
+  let numWeeks = 1;
   let currentDate = new Date();
+  let weekDate = new Date();
+  weekDate.setHours(0, 0, 0, 0);
   currentDate.setHours(0, 0, 0, 0);
 
+  //Create the week ahead date
+  weekDate.setDate(weekDate.getDate() + numWeeks * 7);
+
+  //Set the entered date
   let dateArray = form.value.split("/");
-  let month = dateArray[0]-1;
+  let month = dateArray[0] - 1;
   let date = parseInt(dateArray[1], 10);
   let year = dateArray[2];
   let enterDate = new Date(year, month, date);
   enterDate.setHours(0, 0, 0, 0);
-  console.log(currentDate);
-  console.log(enterDate);
 
-  /*let futureArray = "2020-11-30".split("-");
-  let futureYear = futureArray[0];
-  let futureMonth = parseInt(futureArray[1], 10) - 1;
-  let futureDay = futureArray[2];
-  let futureDate = new Date(year, month, date);
-  */
-  if (currentDate > enterDate) { return { 'dateRange': true } }
+  //Log all of our dates for reference
+  console.log("Date Entered:\n" + enterDate);
+  console.log("Today's date:\n" + currentDate);
+  console.log("Next Week's date:\n" + weekDate);
+  console.log("\n");
+
+
+  if (currentDate > enterDate){
+      return { 'dateRange': true }
+  }
   return null;
 }
 
@@ -58,7 +68,7 @@ export class SubmitDataComponent implements OnInit {
   emailSuccess: boolean = false;
   clicked: boolean = false;
   emailIcon = faCheckCircle;
-  noSpotsIcon = faSadTear;
+  noSpotsIcon = faCalendarTimes;
 
   api = 'http://127.0.0.1:8080/';
   //'http://127.0.0.1:8080/';
@@ -139,8 +149,7 @@ export class SubmitDataComponent implements OnInit {
     this.date = new FormControl('', [
       Validators.required,
       Validators.pattern('[0-9]{2}/[0-9]{2}/[0-9]{4}'),
-
-      //dateValidator
+      dateValidator
     ]);
     this.time = new FormControl('', [
       Validators.required

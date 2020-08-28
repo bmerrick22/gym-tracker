@@ -13,6 +13,8 @@
                     <p class="error" *ngIf="date.errors.required">Date is required</p>
                     <p class="error" *ngIf="date.errors.pattern || date.errors.dateRange">Invalid date entry or not
                         within range</p>
+                    <!--<p class="error" *ngIf="date.errors.dateRange">Date entry not within
+                        within range</p>-->
                 </div>
             </div>
             <div class="entry-submit">
@@ -51,9 +53,10 @@
             </div>
         </div>
         <div *ngIf="email.valid" class="email-notify">
-            <button (click)="emailSubmit(); clicked=true" [disabled]="email.invalid || clicked" type="submit" class="btn btn-outline-light">Email
+            <button (click)="emailSubmit(); clicked=true" [disabled]="email.invalid || clicked" type="submit"
+                class="btn btn-outline-light">Email
                 Me When Available!</button>
-                <p class="error" *ngIf="emailExists">Email already in use</p>
+            <p class="error" *ngIf="emailExists">Email already in use</p>
         </div>
     </div>
     <div *ngIf="emailSuccess" class="email-success">
