@@ -60,7 +60,7 @@ export class SubmitDataComponent implements OnInit {
   emailIcon = faCheckCircle;
   noSpotsIcon = faSadTear;
 
-  api = "https://gym-tracker-ben.uc.r.appspot.com";
+  api = 'http://127.0.0.1:8080/';
   //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
