@@ -6,13 +6,11 @@
     position: relative;
     background-color: #02214b;
     overflow: hidden;
-
 }
 
 .tracker-body{
     z-index: 2;
 }
-
 
 .background-image{
     position: absolute;
