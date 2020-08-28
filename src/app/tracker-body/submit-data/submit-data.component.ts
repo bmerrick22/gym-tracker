@@ -56,7 +56,7 @@ export class SubmitDataComponent implements OnInit {
   displayOption: number = -1;
   emailExists: boolean = false;
 
-  api = 'http://127.0.0.1:8080/';
+  api = 'https://gym-tracker-ben.uc.r.appspot.com';
   //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
