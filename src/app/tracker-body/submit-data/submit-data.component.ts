@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { faCheckCircle, faCalendarTimes } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle, faCalendarTimes, faHourglass } from '@fortawesome/free-regular-svg-icons';
 import {
   FormGroup,
   FormControl,
@@ -21,8 +21,15 @@ function emailDomainValidator(form: FormControl) {
 }
 
 function dateValidator(form: FormControl) {
-  if (!form.value)
-    return;
+  /*ERRORS
+    -Date is in correct format
+    -Date is greater than today and less than a week from today
+    -Date is an actual date
+  */
+  if (!form.value){
+    console.log("Date not in correct format")
+    return null;
+  }
   let numWeeks = 1;
   let currentDate = new Date();
   let weekDate = new Date();
@@ -67,8 +74,9 @@ export class SubmitDataComponent implements OnInit {
   emailExists: boolean = false;
   emailSuccess: boolean = false;
   clicked: boolean = false;
-  emailIcon = faCheckCircle;
+  emailSuccessIcon = faCheckCircle;
   noSpotsIcon = faCalendarTimes;
+  emailIcon = faHourglass;
 
   api = 'http://127.0.0.1:8080/';
   //'http://127.0.0.1:8080/';
@@ -148,8 +156,8 @@ export class SubmitDataComponent implements OnInit {
   createFormControls() {
     this.date = new FormControl('', [
       Validators.required,
-      Validators.pattern('[0-9]{2}/[0-9]{2}/[0-9]{4}'),
-      dateValidator
+      //Validators.pattern('[0-9]{2}/[0-9]{2}/[0-9]{4}'),
+      //dateValidator
     ]);
     this.time = new FormControl('', [
       Validators.required

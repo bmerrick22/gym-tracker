@@ -19,8 +19,8 @@ export class TrackerBodyComponent implements OnInit {
     //Set temporary variables for the strings
     let header:string = "Irish GymSense";
     let body:string = ` 
-      Welcome to Irish GymSense! Irish GymSense tracks the availability for work out slots at the Smith Center. 
-      Only ND emails are allowed and only email notification per person. If you like my work, support me with a beer :)
+      Welcome to Irish GymSense! IGS tracks the availability of work out slots for the Smith Center Gym in the Duncan Student Center. 
+      Must be a member of the ND community, and only one email notification per person. If you like my work, support me with a beer  :)
     `;
     //Assign the variables to the bound html content
     this.textHeader = header;
