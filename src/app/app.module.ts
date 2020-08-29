@@ -9,12 +9,13 @@ import { FooterComponent } from './footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     TrackerBodyComponent,
     SubmitDataComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

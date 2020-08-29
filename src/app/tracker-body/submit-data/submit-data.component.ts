@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { faCheckCircle, faCalendarTimes, faHourglass } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle, faCalendarTimes, faClock } from '@fortawesome/free-regular-svg-icons';
 import {
   FormGroup,
   FormControl,
@@ -76,7 +76,7 @@ export class SubmitDataComponent implements OnInit {
   clicked: boolean = false;
   emailSuccessIcon = faCheckCircle;
   noSpotsIcon = faCalendarTimes;
-  emailIcon = faHourglass;
+  emailIcon = faClock;
 
   api = 'http://127.0.0.1:8080/';
   //'http://127.0.0.1:8080/';
@@ -156,8 +156,8 @@ export class SubmitDataComponent implements OnInit {
   createFormControls() {
     this.date = new FormControl('', [
       Validators.required,
-      //Validators.pattern('[0-9]{2}/[0-9]{2}/[0-9]{4}'),
-      //dateValidator
+      Validators.pattern('[0-9]{2}/[0-9]{2}/[0-9]{4}'),
+      dateValidator
     ]);
     this.time = new FormControl('', [
       Validators.required
@@ -175,7 +175,9 @@ export class SubmitDataComponent implements OnInit {
         date: this.date,
         time: this.time,
       }),
-      email: this.email,
+      signup: new FormGroup({
+        email: this.email
+      })
     });
   }
 

@@ -6,7 +6,7 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="date">Date</label>
                     </div>
-                    <input type="date" class="form-control" formControlName="date" id="date" placeholder="mm/dd/yyyy"
+                    <input type="text" class="form-control" formControlName="date" id="date" placeholder="mm/dd/yyyy"
                         required>
                 </div>
                 <div class="form-control-feedback" *ngIf="date.errors && (date.dirty || date.touched)">
@@ -36,7 +36,7 @@
             <h5 class="spots-text">Please select another day.</h5>
         </div>
     </div>
-    <div *ngIf="(displayOption === 2) && date.valid" class="email-enter-container">
+    <div formGroupName="signup" *ngIf="(displayOption === 2) && date.valid" class="email-enter-container">
         <fa-icon class="email-icon" [icon]="emailIcon" size="lg"></fa-icon>
         <h5 class="email-text">{{emailText}}</h5>
         <div class="email-enter">
