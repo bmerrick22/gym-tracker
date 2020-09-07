@@ -20,7 +20,7 @@ export class TrackerBodyComponent implements OnInit {
     let header:string = "Irish GymSense";
     let body:string = ` 
       Welcome to Irish GymSense! IGS tracks the availability of work out slots for the Smith Center Gym in the Duncan Student Center. 
-      Must be a member of the ND community, and only one email notification per person. You may only sign up for slots one week in 
+      Must be a member of the ND community. You may sign up for an email notification for only one slot one week in 
       advance. If you like my work, support me with a beer  :)
     `;
     //Assign the variables to the bound html content
