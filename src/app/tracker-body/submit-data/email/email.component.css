@@ -1,0 +1,81 @@
+.input-group-text{
+    background-color: #ffec93;
+    font-family: "Aileron-Light";
+    border-color: #ffec93;  
+}
+
+.form-control{
+    background-color: white;
+    font-family: "Aileron-UltraLight";
+    border-color: #ffec93; 
+}
+
+.btn{
+    -webkit-appearance: none;
+    font-family: "Aileron-Light";
+}
+
+.form-control-feedback{
+    color: white;
+    font-family: 'Aileron-Light';
+}
+
+.email-enter-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.email-enter{
+    display: block;
+    width: 100%;
+}
+
+.email-notify{
+    padding-top: 5%;
+}
+
+.email-icon{
+    color:#ffcc00;
+    font-size: 4em;
+}
+
+.email-text{
+    color: white;
+    text-align: center;
+    font-family: 'Aileron-Light';
+}
+
+.error{
+    font-family: 'Aileron-Light';
+    color: lightcoral;
+    position: absolute;
+}
+
+.email-success{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5%;
+}
+
+.success-text{
+    color: white;
+    text-align: center;
+    font-family: "Aileron-Light";
+    width: 75%;
+}
+
+.success-text h5{
+    color:#08f26e;
+    font-family: "Aileron-Heavy";
+}
+
+.success-icon{
+    color: #08f26e;
+    font-size: 4em;
+}
+

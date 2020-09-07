@@ -1,35 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { faCheckCircle, faCalendarTimes, faClock } from '@fortawesome/free-regular-svg-icons';
+import { faCalendarTimes } from '@fortawesome/free-regular-svg-icons';
 import {
   FormGroup,
   FormControl,
   Validators
 } from '@angular/forms';
 
-function emailDomainValidator(form: FormControl) {
-  let email = form.value;
-  if (email && email.indexOf("@") != -1) {
-    let [_, domain] = email.split("@");
-    if (domain !== "nd.edu") {
-      return {
-        emailDomain: { parsedDomain: domain }
-      }
-    }
-  }
-  return null;
-}
 
 function dateValidator(form: FormControl) {
-  /*ERRORS
-    -Date is in correct format
-    -Date is greater than today and less than a week from today
-    -Date is an actual date
-  */
-  if (!form.value){
+  if (!form.value) {
     console.log("Date not in correct format")
     return null;
   }
+
   let numWeeks = 1;
   let currentDate = new Date();
   let weekDate = new Date();
@@ -48,13 +32,14 @@ function dateValidator(form: FormControl) {
   enterDate.setHours(0, 0, 0, 0);
 
   //Log all of our dates for reference
+  /*
   console.log("Date Entered:\n" + enterDate);
   console.log("Today's date:\n" + currentDate);
   console.log("Next Week's date:\n" + weekDate);
   console.log("\n");
+  */
 
-
-  if (currentDate > enterDate){
+  if (currentDate > enterDate || enterDate > weekDate) {
       return { 'dateRange': true }
   }
   return null;
@@ -68,24 +53,20 @@ function dateValidator(form: FormControl) {
 export class SubmitDataComponent implements OnInit {
   myform: FormGroup;
   date: FormControl;
-  time: FormControl;
   email: FormControl;
+  time: FormControl;
   displayOption: number = -1;
-  emailExists: boolean = false;
-  emailSuccess: boolean = false;
-  clicked: boolean = false;
-  emailSuccessIcon = faCheckCircle;
   noSpotsIcon = faCalendarTimes;
-  emailIcon = faClock;
+  emailConfirmed: boolean = false;
 
   api = 'http://127.0.0.1:8080/';
   //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
   noSpotsText: string = "We're sorry, but all time slots have been filled for that day.";
-  emailText: string = "No times listed yet! Enter email to receive a notification when slots are available.";
   spotsText: string = "Select an available time slot to sign up!";
   smithCenterLink: string = "https://recregister.nd.edu/Program/GetProgramDetails?courseId=8f5a4077-925d-454f-8cc6-6bed8e1dfc97&semesterId=00000000-0000-0000-0000-000000000000";
+  dateSubmitted:boolean = false;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -94,12 +75,9 @@ export class SubmitDataComponent implements OnInit {
     this.createForm();
   }
 
-  createText() {
-    let header: string = "Your workout slot is currently not available! Enter your email below to be notified when it is."
-    this.emailText = header;
-  }
 
   public getTimes() {
+    this.dateSubmitted = true;
     //Format time
     let timeArray = this.date.value.split("/");
     let month = timeArray[0];
@@ -109,7 +87,6 @@ export class SubmitDataComponent implements OnInit {
     console.log(subDate);
     //Update variables
     this.timeSlots = [];
-
     //Create body of POST request
     let postData = {
       date: subDate
@@ -133,25 +110,6 @@ export class SubmitDataComponent implements OnInit {
     });
   }
 
-  emailSubmit() {
-    //Create body of POST request
-    let postData = {
-      email: this.email.value,
-      date: this.date.value
-    }
-    //Retrieve the data from the API
-    this.httpClient.post<any>(this.api + "/api/sign-up", postData).subscribe(data => {
-      console.log(data);
-      if (data["status"] == "failure") {
-        this.emailExists = true;
-      } else {
-        this.displayOption = -1;
-        this.emailExists = false;
-        this.emailSuccess = true;
-        //this.resetDisplay();
-      }
-    });
-  }
 
   createFormControls() {
     this.date = new FormControl('', [
@@ -162,11 +120,6 @@ export class SubmitDataComponent implements OnInit {
     this.time = new FormControl('', [
       Validators.required
     ]);
-    this.email = new FormControl('', [
-      Validators.required,
-      Validators.pattern("[^ @]*@[^ @]*"),
-      emailDomainValidator
-    ]);
   }
 
   createForm() {
@@ -176,7 +129,7 @@ export class SubmitDataComponent implements OnInit {
         time: this.time,
       }),
       signup: new FormGroup({
-        email: this.email
+        //Add email in email component
       })
     });
   }
@@ -184,9 +137,19 @@ export class SubmitDataComponent implements OnInit {
   resetDisplay() {
     console.log("Resetting display - Only showing date sign up");
     this.displayOption = -1;
-    this.emailExists = false;
-    this.emailSuccess = false;
     this.myform.reset();
+    this.dateSubmitted = false;
+  }
+
+
+  hideMain(bool: boolean) {
+    console.log("Confirmed email: " + bool)
+    this.emailConfirmed = bool;
+  }
+
+  changeDisplay(opt: number) {
+    console.log("Display option: " + opt);
+    this.displayOption = opt;
   }
 
 

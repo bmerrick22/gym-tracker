@@ -1,0 +1,32 @@
+<!--Form group for the email sign up-->
+<div *ngIf="!emailConfirmed" [formGroup]="signupForm" class="email-enter-container">
+    <fa-icon class="email-icon" [icon]="emailIcon"></fa-icon>
+    <h5 class="email-text">{{emailText}}</h5>
+    <div class="email-enter">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="email">Email</label>
+            </div>
+            <input (click)="resetSubmittedEmail()" type="email" class="form-control" formControlName="email" id="email" placeholder="email@nd.edu" disabled>
+        </div>
+        <div *ngIf="true" class="form-control-feedback">
+            <p class="error">Email feature currently disabled</p>
+        </div>
+        <div class="form-control-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
+            <p class="error" *ngIf="email.errors.required">Email is required</p>
+            <p class="error" *ngIf="email.errors.pattern">The email address must contain at least the @ character
+            </p>
+            <p class="error" *ngIf="email.errors.emailDomain">Email must be ND email</p>
+        </div>
+    </div>
+    <div *ngIf="email.valid" class="email-notify">
+        <button (click)="emailSubmit(); clicked=true" [disabled]="email.invalid || clicked" type="submit"
+            class="btn btn-outline-light">Email
+            Me When Available!</button>
+        <p class="error" *ngIf="emailExists">Email already in use</p>
+    </div>
+</div>
+<!--Display successful email-->
+<app-email-success 
+    *ngIf="emailConfirmed">
+</app-email-success>

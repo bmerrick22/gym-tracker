@@ -7,7 +7,8 @@ import { SubmitDataComponent } from './tracker-body/submit-data/submit-data.comp
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { EmailComponent } from './tracker-body/submit-data/email/email.component';
+import { EmailSuccessComponent } from './tracker-body/submit-data/email/email-success/email-success.component';
 
 
 @NgModule({
@@ -16,6 +17,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     TrackerBodyComponent,
     SubmitDataComponent,
     FooterComponent,
+    EmailComponent,
+    EmailSuccessComponent,
   ],
   imports: [
     BrowserModule,
