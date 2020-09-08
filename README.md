@@ -11,4 +11,3 @@ I built this project as a full-stack system upon mainly self-taught knowledge. T
 ## Development Info
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
 *Note*: The developed API is currently suspended until dates and times have become available for the Smith Center. Therefore, you will be unable to view times on the site.
-
