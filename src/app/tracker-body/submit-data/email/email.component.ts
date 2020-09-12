@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { HttpClient } from '@angular/common/http';
+import { LoaderService } from '../../../spinner/loader.service';
 import {
   FormGroup,
   FormControl,
@@ -39,9 +40,9 @@ export class EmailComponent implements OnInit {
   emailIcon = faClock;
   emailText: string = "No times listed yet! Enter email to receive a notification when slots are available.";
   showEmailInput: boolean = false;
+  showSpinner = this.loadService.visibility;
 
-
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private loadService: LoaderService) {
   }
 
   ngOnInit(): void {

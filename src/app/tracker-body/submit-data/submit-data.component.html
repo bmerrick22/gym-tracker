@@ -20,6 +20,9 @@
                     class="submit-button btn btn-light">Find Times!</button>
             </div>
         </div>
+        <div *ngIf="showSpinner | async" class="spinner-border">
+            <span class="sr-only">Loading...</span>
+        </div>
         <!--Display available spots-->
         <div *ngIf="(displayOption === 0) && date.valid" class="time-spots">
             <h5 class="spots-text">{{spotsText}}</h5>

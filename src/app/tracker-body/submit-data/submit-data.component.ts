@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { faCalendarTimes } from '@fortawesome/free-regular-svg-icons';
+import { LoaderService } from '../../spinner/loader.service';
 import {
   FormGroup,
   FormControl,
@@ -31,14 +32,6 @@ function dateValidator(form: FormControl) {
   let enterDate = new Date(year, month, date);
   enterDate.setHours(0, 0, 0, 0);
 
-  //Log all of our dates for reference
-  /*
-  console.log("Date Entered:\n" + enterDate);
-  console.log("Today's date:\n" + currentDate);
-  console.log("Next Week's date:\n" + weekDate);
-  console.log("\n");
-  */
-
   if (currentDate > enterDate || enterDate > weekDate) {
       return { 'dateRange': true }
   }
@@ -51,28 +44,37 @@ function dateValidator(form: FormControl) {
   styleUrls: ['./submit-data.component.css']
 })
 export class SubmitDataComponent implements OnInit {
-  myform: FormGroup;
-  date: FormControl;
+  myform: FormGroup; 
+  date: FormControl; 
   email: FormControl;
   time: FormControl;
   displayOption: number = -1;
   noSpotsIcon = faCalendarTimes;
   emailConfirmed: boolean = false;
-
   api = "https://gym-tracker-ben.uc.r.appspot.com";
   //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
-  noSpotsText: string = "We're sorry, but all time slots have been filled for that day.";
-  spotsText: string = "Select an available time slot to sign up!";
+  noSpotsText: string;
+  spotsText: string;
   smithCenterLink: string = "https://recregister.nd.edu/Program/GetProgramDetails?courseId=8f5a4077-925d-454f-8cc6-6bed8e1dfc97&semesterId=00000000-0000-0000-0000-000000000000";
   dateSubmitted:boolean = false;
+  showSpinner = this.loadService.visibility;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private loadService: LoaderService) { }
 
   ngOnInit(): void {
     this.createFormControls();
     this.createForm();
+    this.createText();
+  }
+
+  public createText(){
+    let noSpots:string = "We're sorry, but all time slots have been filled for that day.";
+    let spots:string = "Select an available time slot to sign up!";
+    this.noSpotsText = noSpots;
+    this.spotsText = spots;
+
   }
 
 
@@ -109,7 +111,6 @@ export class SubmitDataComponent implements OnInit {
       }
     });
   }
-
 
   createFormControls() {
     this.date = new FormControl('', [
