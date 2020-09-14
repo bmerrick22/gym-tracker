@@ -2,7 +2,8 @@
     background-color: #02214b;
     display: flex;
     justify-content: center;
-    align-content: center;
+    align-content: center;   
+    height: 100%;
 }
 
 .buy-beer{

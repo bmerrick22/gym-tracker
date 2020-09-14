@@ -51,7 +51,7 @@ export class SubmitDataComponent implements OnInit {
   displayOption: number = -1;
   noSpotsIcon = faCalendarTimes;
   emailConfirmed: boolean = false;
-  api = "https://gym-tracker-ben.uc.r.appspot.com";
+  api = 'http://127.0.0.1:8080/';
   //'http://127.0.0.1:8080/';
   //"https://gym-tracker-ben.uc.r.appspot.com";
   timeSlots = [];
