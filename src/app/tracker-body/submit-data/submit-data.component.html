@@ -6,7 +6,7 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="date">Date</label>
                     </div>
-                    <input type="text" class="form-control" formControlName="date" id="date" placeholder="mm/dd/yyyy"
+                    <input disabled type="text" class="form-control" formControlName="date" id="date" placeholder="mm/dd/yyyy"
                         required>
                 </div>
                 <div class="form-control-feedback" *ngIf="date.errors && (date.dirty || date.touched)">
